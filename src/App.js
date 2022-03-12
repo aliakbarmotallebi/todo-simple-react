@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Person from "./components/Person";
+
+
+
+
+class App extends React.Component {
+    constructor(){
+        super();
+    }
+
+    state = {
+        persons : [
+            {firstName:"AliAkabr", lastName:"Motallebi", age:"25"},
+            {firstName:"mamad", lastName:"Tahoriyan", age:"23"}
+        ]
+    };
+
+
+    handlePersonChange = () =>{
+        this.setState({
+            persons : [
+                {firstName:"alireza", lastName:"Motallebi", age:"25"},
+                {firstName:"amir", lastName:"akbari", age:"23"},
+                {firstName:"amin", lastName:"akbari2", age:"20"},
+            ]
+        });
+    }
+
+
+    render() {
+
+        const { persons } = this.state;
+
+        return (
+            <div className="bg-gray-200 p-20 h-screen flex justify-center items-start flex-col">
+                <h1> Hello World! </h1>
+                <hr />
+                { persons.map( person => {
+                    return <Person firstName={person.firstName} lastName={person.lastName} age={person.age} />
+                })}
+
+                <button onClick={this.handlePersonChange}>
+                    Change Persons
+                </button>
+            </div>
+        );
+    }
 }
 
 export default App;
