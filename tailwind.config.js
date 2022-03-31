@@ -3,7 +3,11 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'orbitron-regular': ['orbitron_regular'],
+      }
+    },
   },
   plugins: [],
 }
