@@ -40,6 +40,11 @@ class App extends React.Component {
             id: Math.floor(Math.random()*1000),
             item: this.state.item
         };
+
+        if(task.item == "" && task.item == ''){
+            return null;
+        }
+
         tasks.push(task);
         this.setState({ tasks, item: "" });
     }
@@ -58,11 +63,13 @@ class App extends React.Component {
                     <div className='rounded-lg overflow-hidden mb-2 bg-white'>
                         <div className='p-2 shadow bg-white'>
                             <div className='flex gap-2'>
-
-                                <button  onClick={this.handleAddTask} disabled={(item.length == 0)} className='px-2 py-1 border border-gray-300 text-gray-900 rounded-md disabled:opacity-50'>
+                                <input onChange={this.setItem} className='border bg-gray-200 border-gray-300 text-gray-900 rounded flex-1 pl-1' type="text" value={item}/>
+                                <button  onClick={this.handleAddTask} disabled={(item.length == 0)} className='flex items-center px-2 py-1 border border-gray-300 text-gray-900 rounded-md disabled:opacity-50'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                    </svg>
                                     Add Task
                                 </button>
-                                <input onChange={this.setItem} className='border bg-gray-200 border-gray-300 text-gray-900 rounded flex-1 pl-1' type="text" value={item}/>
                             </div>
                         </div>
                     {showTasks
