@@ -17,7 +17,8 @@ class App extends React.Component {
             { id: 8, item:"buy book"},
 
         ],
-        showTasks : true
+        showTasks : true,
+        item: ""
     };
 
     handleShowTask = () =>{
@@ -25,16 +26,31 @@ class App extends React.Component {
     }
 
     handleDeleteTask = id => {
-        console.log(id);
+        //console.log(id);
         const tasks = [...this.state.tasks];
         const removedTaskbById = tasks.filter( p=> p.id !== id);
 
         this.setState( { tasks: removedTaskbById });
     }
 
+
+    handleAddTask = () => {
+        const tasks = [...this.state.tasks];
+        const task = {
+            id: Math.floor(Math.random()*1000),
+            item: this.state.item
+        };
+        tasks.push(task);
+        this.setState({ tasks, item: "" });
+    }
+
+    setItem = event => {
+        this.setState({ item: event.target.value });
+    }
+
     render() {
 
-        const { tasks, showTasks } = this.state;
+        const { tasks, showTasks, item } = this.state;
 
         return (
             <div className="bg-gray-200 h-screen flex justify-center overflow-hidden items-center font-thin shadow-lg">
@@ -42,10 +58,11 @@ class App extends React.Component {
                     <div className='rounded-lg overflow-hidden mb-2 bg-white'>
                         <div className='p-2 shadow bg-white'>
                             <div className='flex gap-2'>
-                                <button className='px-2 py-1 border border-gray-300 text-gray-900 rounded-md'>
+
+                                <button  onClick={this.handleAddTask} disabled={(item.length == 0)} className='px-2 py-1 border border-gray-300 text-gray-900 rounded-md disabled:opacity-50'>
                                     Add Task
                                 </button>
-                                <input className='border flex-1 bg-gray-200 border-gray-300 text-gray-900 rounded flex-auto' type="text" value=""/>
+                                <input onChange={this.setItem} className='border bg-gray-200 border-gray-300 text-gray-900 rounded flex-1 pl-1' type="text" value={item}/>
                             </div>
                         </div>
                     {showTasks
